@@ -1,0 +1,69 @@
+.about-section {
+  background: url("https://images.unsplash.com/photo-14973662105479-4275897d9f1e")
+    no-repeat center/cover;
+  padding: 4rem 0;
+  width: 100vw;
+  margin: 0;
+}
+
+.about-overlay {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  width: 100%;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.about-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.about-section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.about-section p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.employee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.employee-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.employee-card h4 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.employee-card p {
+  color: #007bff;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.employee-card p.contact {
+  color: #555;
+}

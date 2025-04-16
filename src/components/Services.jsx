@@ -1,3 +1,5 @@
+import "../styles/Services.css";
+
 function Services() {
   const services = [
     {
@@ -23,88 +25,25 @@ function Services() {
   ];
 
   return (
-    <section
-      style={{
-        background: `url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c') no-repeat center/cover`,
-        padding: "4rem 0",
-        flex: 1,
-        backgroundAttachment: "fixed",
-      }}
-    >
-      <div style={{ background: "rgba(255, 255, 255, 0.9)", padding: "2rem" }}>
-        <div className="container">
-          <h2
-            style={{
-              fontSize: "2rem",
-              marginBottom: "2rem",
-              textAlign: "center",
-            }}
-          >
-            Our Services
-          </h2>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-              gap: "2rem",
-              marginBottom: "4rem",
-            }}
-          >
+    <section className="services-section">
+      <div className="services-overlay">
+        <div className="services-container">
+          <h2>Our Services</h2>
+          <div className="services-grid">
             {services.map((service, index) => (
-              <div
-                key={index}
-                style={{
-                  background: "#fff",
-                  padding: "1.5rem",
-                  borderRadius: "8px",
-                  boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-                  textAlign: "center",
-                }}
-              >
-                <i
-                  className={`fas ${service.icon}`}
-                  style={{
-                    fontSize: "2rem",
-                    color: "#007bff",
-                    marginBottom: "1rem",
-                  }}
-                ></i>
-                <h3 style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>
-                  {service.title}
-                </h3>
-                <p style={{ color: "#555" }}>{service.desc}</p>
+              <div key={index} className="service-card">
+                <i className={`fas ${service.icon}`}></i>
+                <h3>{service.title}</h3>
+                <p>{service.desc}</p>
               </div>
             ))}
           </div>
-          <h2
-            style={{
-              fontSize: "2rem",
-              marginBottom: "2rem",
-              textAlign: "center",
-            }}
-          >
-            Industries We Serve
-          </h2>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "2rem",
-              justifyContent: "center",
-            }}
-          >
+          <h2>Industries We Serve</h2>
+          <div className="industries-grid">
             {industries.map((industry, index) => (
-              <div key={index} style={{ textAlign: "center" }}>
-                <img
-                  src={industry.logo}
-                  alt={`${industry.name} logo`}
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    marginBottom: "0.5rem",
-                  }}
-                />
-                <p style={{ color: "#333" }}>{industry.name}</p>
+              <div key={index} className="industry-item">
+                <img src={industry.logo} alt={`${industry.name} logo`} />
+                <p>{industry.name}</p>
               </div>
             ))}
           </div>

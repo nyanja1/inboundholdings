@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "../styles/Home.css";
 
 function Home() {
   const slides = [
@@ -25,47 +26,18 @@ function Home() {
   }, [slides.length]);
 
   return (
-    <section
-      style={{
-        background: `url('https://images.unsplash.com/photo-1586528116149-3feb3a58e513') no-repeat center/cover`,
-        minHeight: "80vh",
-        display: "flex",
-        alignItems: "center",
-        flex: 1,
-        position: "relative",
-        color: "white",
-        textAlign: "center",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: "rgba(0, 0, 0, 0.5)",
-          zIndex: 1,
-        }}
-      ></div>
-      <div style={{ position: "relative", zIndex: 2, width: "100%" }}>
+    <section className="home-section">
+      <div className="home-overlay"></div>
+      <div className="home-content">
         <div className="container">
           <div
+            className="home-slider"
             style={{
               background: `url('${slides[currentSlide].image}') no-repeat center/cover`,
-              padding: "4rem 2rem",
-              borderRadius: "10px",
-              maxWidth: "800px",
-              margin: "0 auto",
-              transition: "background 0.5s ease",
             }}
           >
-            <h2 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>
-              {slides[currentSlide].text}
-            </h2>
-            <p style={{ fontSize: "1.2rem", marginBottom: "2rem" }}>
-              Your trusted partner for logistics in East Africa.
-            </p>
+            <h2>{slides[currentSlide].text}</h2>
+            <p>Your trusted partner for logistics in East Africa.</p>
             <a href="/services" className="btn">
               Explore Services
             </a>

@@ -1,145 +1,112 @@
 import { useState } from "react";
-import emailjs from "emailjs-com";
 
-function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    details: "",
+  });
   const [status, setStatus] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    emailjs
-      .send(
-        "YOUR_SERVICE_ID", // Replace with EmailJS Service ID
-        "YOUR_TEMPLATE_ID", // Replace with EmailJS Template ID
-        { ...form, to_email: "info@inboundholdingsea.com" },
-        "YOUR_PUBLIC_KEY" // Replace with EmailJS Public Key
-      )
-      .then(() => {
-        setStatus("Message sent successfully!");
-        setForm({ name: "", email: "", message: "" });
-      })
-      .catch(() => setStatus("Failed to send message. Try again."));
+    setStatus("Submitting...");
+    try {
+      // Replace with your backend endpoint or service (e.g., Formspree, Netlify Forms)
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        setStatus("Quote submitted successfully!");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          details: "",
+        });
+      } else {
+        setStatus("Error submitting quote. Please try again.");
+      }
+    } catch (error) {
+      setStatus("Error submitting quote. Please try again.");
+    }
   };
 
   return (
-    <section
-      style={{
-        background: `url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center/cover`,
-        padding: "4rem 0",
-        flex: 1,
-      }}
-    >
-      <div style={{ background: "rgba(255, 255, 255, 0.9)", padding: "2rem" }}>
-        <div className="container">
-          <h2
-            style={{
-              fontSize: "2rem",
-              marginBottom: "2rem",
-              textAlign: "center",
-            }}
-          >
-            Get in Touch
-          </h2>
-          <form
-            onSubmit={handleSubmit}
-            style={{ maxWidth: "500px", margin: "0 auto" }}
-          >
-            <div style={{ marginBottom: "1rem" }}>
-              <label
-                style={{
-                  display: "block",
-                  color: "#333",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                style={{
-                  width: "100%",
-                  padding: "0.8rem",
-                  border: "1px solid #ccc",
-                  borderRadius: "5px",
-                }}
-                required
-              />
-            </div>
-            <div style={{ marginBottom: "1rem" }}>
-              <label
-                style={{
-                  display: "block",
-                  color: "#333",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                style={{
-                  width: "100%",
-                  padding: "0.8rem",
-                  border: "1px solid #ccc",
-                  borderRadius: "5px",
-                }}
-                required
-              />
-            </div>
-            <div style={{ marginBottom: "1rem" }}>
-              <label
-                style={{
-                  display: "block",
-                  color: "#333",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Message
-              </label>
-              <textarea
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                style={{
-                  width: "100%",
-                  padding: "0.8rem",
-                  border: "1px solid #ccc",
-                  borderRadius: "5px",
-                  minHeight: "100px",
-                }}
-                required
-              ></textarea>
-            </div>
-            <button type="submit" className="btn">
-              Send
-            </button>
-          </form>
-          {status && (
-            <p
-              style={{
-                textAlign: "center",
-                marginTop: "1rem",
-                color: status.includes("Failed") ? "red" : "green",
-              }}
-            >
-              {status}
-            </p>
-          )}
-          <div style={{ marginTop: "2rem", textAlign: "center" }}>
-            <p>
-              <i className="fas fa-phone"></i> +254 723 432606
-            </p>
-            <p>
-              <i className="fas fa-phone"></i> +254 732 208109
-            </p>
-          </div>
+    <section className="contact-page">
+      <h1>Request a Quote</h1>
+      <form onSubmit={handleSubmit} className="quote-form">
+        <div className="form-group">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
         </div>
-      </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone">Phone (Optional)</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="service">Service</label>
+          <select
+            id="service"
+            name="service"
+            value={formData.service}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select a service</option>
+            <option value="freight">Freight Forwarding</option>
+            <option value="warehouse">Warehousing</option>
+            <option value="transport">Transport</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="details">Details</label>
+          <textarea
+            id="details"
+            name="details"
+            value={formData.details}
+            onChange={handleChange}
+            rows="5"
+          />
+        </div>
+        <button type="submit">Submit Quote</button>
+        {status && <p className="form-status">{status}</p>}
+      </form>
     </section>
   );
-}
+};
 
 export default Contact;
